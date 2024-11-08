@@ -99,12 +99,18 @@ The depth maps are assumed to align with the video frames and accurately represe
 Camera Movement Compensation:
 
 Implemented for both approaches to reduce the effect of global motion due to camera movement. This was crucial in achieving a consistent brightening effect focused on object motion.
+
+
 Challenges and Limitations:
 
 Flickering: 
 
 Small frame-to-frame variations can introduce flickering, especially in the non-ML approach. This may require further smoothing or stabilization techniques.
-GPU Dependency for ML-Based Approach: The RAFT model is resource-intensive and requires a GPU for practical processing speeds on high-resolution or long videos.
+
+
+GPU Dependency for ML-Based Approach: 
+
+The RAFT model is resource-intensive and requires a GPU for practical processing speeds on high-resolution or long videos.
 
 ## Optional Extensions
 The following optional extensions were explored and documented in the code:
