@@ -81,17 +81,20 @@ Each script saves the processed video as:
 ## Performance Metrics
 Non-ML (Farneback) Approach:
 
-Optical Flow Calculation: ~10 ms per frame
-Depth Map Processing: ~5 ms per frame
-Brightness Mask Application: ~8 ms per frame
-Total Processing Time: ~23 ms per frame
+- Optical Flow Calculation: ~10 ms per frame
+- Depth Map Processing: ~5 ms per frame
+- Brightness Mask Application: ~8 ms per frame
+- Total Processing Time: ~23 ms per frame
+
+
 ML-Based (RAFT) Approach:
 
-Optical Flow Calculation: ~50 ms per frame (with GPU)
-Depth Map Processing: ~5 ms per frame
-Brightness Mask Application: ~8 ms per frame
-Total Processing Time: ~63 ms per frame
-The ML-based approach is computationally heavier but offers higher-quality results, especially for complex motion scenarios.
+- Optical Flow Calculation: ~50 ms per frame (with GPU)
+- Depth Map Processing: ~5 ms per frame
+- Brightness Mask Application: ~8 ms per frame
+- Total Processing Time: ~63 ms per frame
+
+
 
 The ML-based approach with RAFT provides higher-quality flow estimations, especially in scenes with complex motion or occlusions. However, it is computationally intensive and may be slower on large videos without GPU support.
 
