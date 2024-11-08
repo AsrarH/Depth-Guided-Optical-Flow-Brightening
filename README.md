@@ -84,18 +84,26 @@ The ML-based approach with RAFT provides higher-quality flow estimations, especi
 Choice of Optical Flow Method:
 
 The Farneback method was chosen for its simplicity and speed in lower-complexity scenes, while RAFT was selected for its accuracy in complex motions. This allows the user to balance between speed and accuracy based on the scene’s needs.
+
+
 Dynamic Brightness Thresholding:
 
 The 90th percentile threshold was selected for its effectiveness in isolating high-motion regions. Lower thresholds introduced more noise, while higher thresholds reduced the effect's visibility.
+
+
 Depth Map Assumptions:
 
 The depth maps are assumed to align with the video frames and accurately represent object proximity (lower values for closer areas). This assumption is critical for the depth-weighted brightening effect to work effectively.
+
+
 Camera Movement Compensation:
 
 Implemented for both approaches to reduce the effect of global motion due to camera movement. This was crucial in achieving a consistent brightening effect focused on object motion.
 Challenges and Limitations:
 
-Flickering: Small frame-to-frame variations can introduce flickering, especially in the non-ML approach. This may require further smoothing or stabilization techniques.
+Flickering: 
+
+Small frame-to-frame variations can introduce flickering, especially in the non-ML approach. This may require further smoothing or stabilization techniques.
 GPU Dependency for ML-Based Approach: The RAFT model is resource-intensive and requires a GPU for practical processing speeds on high-resolution or long videos.
 
 ## Optional Extensions
