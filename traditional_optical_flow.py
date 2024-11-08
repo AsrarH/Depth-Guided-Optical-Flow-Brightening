@@ -14,7 +14,7 @@ frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 # Initialize the video writer to save the output video
 output_video = cv2.VideoWriter(
-    'output_video.mp4',
+    'output_video_traditional.mp4',
     cv2.VideoWriter_fourcc(*'mp4v'),
     fps,
     (frame_width, frame_height)
@@ -98,4 +98,4 @@ while True:
 # Release all resources
 cap.release()
 output_video.release()
-print("Processing completed. Check output_video.mp4")
+print("Processing completed. Check output_video_traditional.mp4")
