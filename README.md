@@ -41,7 +41,7 @@ Both methods share the same structure for input/output paths. Use the following 
 ### Non-ML Approach (Farneback Optical Flow)
 
 ```bash
-python traditional_optical_flow.py --video_path input_video.mp4 --depth_map_folder source_depth/ --output_path output_video_traditional.mp4
+python traditional_optical_flow.py 
 ```
 
 ### ML-Based Approach (RAFT Optical Flow)
