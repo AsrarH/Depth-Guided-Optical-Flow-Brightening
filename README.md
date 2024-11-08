@@ -60,7 +60,7 @@ python ml_optical_flow.py --video_path input_video.mp4 --depth_map_folder source
    - Depth maps are resized to match the video frame dimensions and normalized. This data is used to weight the flow magnitude, so closer regions appear brighter.
 
 3. **Dynamic Thresholding**:
-   - A dynamic threshold is applied to the flow magnitude, using the 90th percentile to focus on high-motion areas.
+   - A dynamic threshold is applied to the depth-weighted flow magnitude, based on the 90th percentile of scene flow values. This step helps to focus the brightening effect on only the most significant motion, isolating high-flow regions in each frame while filtering out background motion or minor movements. Lower threshold values introduced noise, while higher thresholds reduced the visibility of the effect.
 
 4. **Color Mapping and Blending**:
    - The processed motion data is color-mapped (`COLORMAP_HOT`) and blended with the original frame to create a brightening effect for high-motion regions.
@@ -80,15 +80,43 @@ Each script saves the processed video as:
 
 The ML-based approach with RAFT provides higher-quality flow estimations, especially in scenes with complex motion or occlusions. However, it is computationally intensive and may be slower on large videos without GPU support.
 
-## Assumptions and Limitations
+## Trade-offs, Assumptions, and Decisions
+Choice of Optical Flow Method:
 
-- The input video frames and depth maps must be aligned, with each depth map corresponding to a specific video frame.
-- Depth maps are assumed to accurately represent proximity (closer areas have lower values).
-- Flickering can occur due to frame-to-frame variations in optical flow, especially in the non-ML approach.
+The Farneback method was chosen for its simplicity and speed in lower-complexity scenes, while RAFT was selected for its accuracy in complex motions. This allows the user to balance between speed and accuracy based on the scene’s needs.
+Dynamic Brightness Thresholding:
 
+The 90th percentile threshold was selected for its effectiveness in isolating high-motion regions. Lower thresholds introduced more noise, while higher thresholds reduced the effect's visibility.
+Depth Map Assumptions:
+
+The depth maps are assumed to align with the video frames and accurately represent object proximity (lower values for closer areas). This assumption is critical for the depth-weighted brightening effect to work effectively.
+Camera Movement Compensation:
+
+Implemented for both approaches to reduce the effect of global motion due to camera movement. This was crucial in achieving a consistent brightening effect focused on object motion.
+Challenges and Limitations:
+
+Flickering: Small frame-to-frame variations can introduce flickering, especially in the non-ML approach. This may require further smoothing or stabilization techniques.
+GPU Dependency for ML-Based Approach: The RAFT model is resource-intensive and requires a GPU for practical processing speeds on high-resolution or long videos.
+
+## Optional Extensions
+The following optional extensions were explored and documented in the code:
+
+
+Non-ML vs. ML-Based Comparison:
+
+Implemented both non-ML (Farneback) and ML-based (RAFT) optical flow approaches to compare accuracy and performance. RAFT provides superior detail for complex motion but is slower, while Farneback is faster and effective for simpler scenes.
+Beautification and Color Mapping:
+
+Experimented with various color maps and blending settings (COLORMAP_HOT, etc.) to improve the look of the effect. COLORMAP_HOT was chosen for its vibrant effect on high-motion areas.
+Future Extensions:
+
+Scene Flow Estimation: Estimating 3D scene flow for better depth-weighted visualization.
+Forward Edge Effect: Highlighting only the forward edges of motion for a more realistic effect.
 
 ## Example Output
 
 Example output files:
 -  Non-ML (Traditional): [output_video_traditional.mp4 on Google Drive](https://drive.google.com/file/d/1wBzC2qknJu-oIoUQP2D8KvhxsgXZtw7_/view?usp=sharing)
 - ML-Based: `output_video_raft.mp4`
+
+  
