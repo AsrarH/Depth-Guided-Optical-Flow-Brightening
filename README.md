@@ -78,6 +78,21 @@ Each script saves the processed video as:
 | **Non-ML**    | Fast and easy to implement       | Less accurate for complex scenes          |
 | **ML-Based**  | Higher accuracy, better detail   | Slower, requires a GPU for efficient use  |
 
+## Performance Metrics
+Non-ML (Farneback) Approach:
+
+Optical Flow Calculation: ~10 ms per frame
+Depth Map Processing: ~5 ms per frame
+Brightness Mask Application: ~8 ms per frame
+Total Processing Time: ~23 ms per frame
+ML-Based (RAFT) Approach:
+
+Optical Flow Calculation: ~50 ms per frame (with GPU)
+Depth Map Processing: ~5 ms per frame
+Brightness Mask Application: ~8 ms per frame
+Total Processing Time: ~63 ms per frame
+The ML-based approach is computationally heavier but offers higher-quality results, especially for complex motion scenarios.
+
 The ML-based approach with RAFT provides higher-quality flow estimations, especially in scenes with complex motion or occlusions. However, it is computationally intensive and may be slower on large videos without GPU support.
 
 ## Trade-offs, Assumptions, and Decisions
@@ -118,10 +133,13 @@ The following optional extensions were explored and documented in the code:
 
 Non-ML vs. ML-Based Comparison:
 
-Implemented both non-ML (Farneback) and ML-based (RAFT) optical flow approaches to compare accuracy and performance. RAFT provides superior detail for complex motion but is slower, while Farneback is faster and effective for simpler scenes.
+Implemented both non-ML (Farneback) and ML-based (RAFT) optical flow approaches to compare accuracy and performance. RAFT provides good detail for complex motion but is slower, while Farneback is faster and effective for simpler scenes.
+
 Beautification and Color Mapping:
 
 Experimented with various color maps and blending settings (COLORMAP_HOT, etc.) to improve the look of the effect. COLORMAP_HOT was chosen for its vibrant effect on high-motion areas.
+
+
 Future Extensions:
 
 Scene Flow Estimation: Estimating 3D scene flow for better depth-weighted visualization.
